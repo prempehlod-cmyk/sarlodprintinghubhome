@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SARLOD Printing Hub, Yabi</title>
+<meta name="description" content="SARLOD Printing Hub, Atwima-Yabi: printing, photocopying, banners, invitation cards, scanning and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Archivo+Black&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-title="Customers Enquiry">
+<main>
+<div class="wrap page-title"><div class="eyebrow">Customers Enquiry</div><h2>Tell us what you need printed</h2><p class="muted">Fill in the form and our team will call or message you with a price and a pick-up time. No sign-in needed.</p></div>
+<section class="section" style="padding-top:12px"><div class="wrap" style="max-width:760px"><form class="card form" id="enqForm">
+<div><label for="eName">Your name</label><input id="eName" name="name" required maxlength="80" autocomplete="name"></div>
+<div><label for="ePhone">Phone / WhatsApp</label><input id="ePhone" name="phone" type="tel" required maxlength="20" autocomplete="tel"></div>
+<div><label for="eMail">Email (optional)</label><input id="eMail" name="email" type="email" maxlength="100" autocomplete="email"></div>
+<div><label for="enqService">Service</label><select id="enqService" name="service" required><option value="">Choose a service</option></select></div>
+<div class="full"><label for="eMsg">Your message</label><textarea id="eMsg" name="message" required maxlength="1500" placeholder="What do you want printed? How many copies, what size, and when do you need it?"></textarea></div>
+<div class="sr" aria-hidden="true"><label>Leave empty <input name="website" tabindex="-1" autocomplete="off"></label></div>
+<div class="full"><button class="btn mag" type="submit" id="eGo">Send enquiry</button></div><div class="full" id="eOut" aria-live="polite"></div></form></div></section>
+</main>
+<script src="js/app.js"></script>
+<script>App.boot('enquiry');</script>
+<script>
+(function(){
+const f=document.getElementById('enqForm'),out=document.getElementById('eOut');
+f.addEventListener('submit',async e=>{
+  e.preventDefault(); const d=new FormData(f); if(d.get('website')) return;
+  const btn=document.getElementById('eGo'); btn.disabled=true;
+  const rec={id:App.uid(),created:App.now(),updated:App.now(),name:d.get('name').trim(),phone:d.get('phone').trim(),email:d.get('email').trim(),service:d.get('service'),message:d.get('message').trim(),status:'New',source:'website'};
+  App.KV.set('outbox',(App.KV.get('outbox')||[]).concat([rec]));
+  App.put('enquiries',Object.assign({},rec));
+  await App.Sync.sendOutbox();
+  const sent=!(App.KV.get('outbox')||[]).some(r=>r.id===rec.id);
+  out.innerHTML=sent?'<div class="msg ok">Thank you, '+App.esc(rec.name)+'. We have your enquiry and will contact you on '+App.esc(rec.phone)+'.</div>':'<div class="msg info">Your enquiry is saved on this device and will be sent as soon as the connection is back. To be quick, call or WhatsApp us on the numbers in the page footer.</div>';
+  f.reset(); btn.disabled=false;
+});
+})();
+</script>
+</body></html>

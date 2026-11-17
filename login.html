@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Staff Login | SARLOD Printing Hub, Gabi</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-area="public" data-page="login">
+<main id="content">
+  <div class="page-title"><div class="container"><h2>Staff Portal</h2><p>Staff and administrator sign-in</p></div></div>
+  <section class="sec container">
+    <div class="formcard login-wrap" id="loginCard">
+      <h3>&#128274; Sign in</h3>
+      <p style="color:#5b6b86;margin-top:0">Enter your Staff ID and password. Customers do not need to sign in to use the website.</p>
+      <form id="loginForm">
+        <label for="lid">Staff ID</label><input id="lid" required autocomplete="username" autocapitalize="characters">
+        <div style="height:10px"></div>
+        <label for="lpw">Password</label><input id="lpw" type="password" required autocomplete="current-password">
+        <p style="margin:8px 0"><label style="font-weight:400"><input type="checkbox" id="showpw" style="width:auto"> Show password</label></p>
+        <div id="lmsg"></div>
+        <button class="btn" type="submit" style="width:100%">Sign in</button>
+      </form>
+    </div>
+  </section>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SARLOD Printing Hub, Yabi</title>
+<meta name="description" content="SARLOD Printing Hub, Atwima-Yabi: printing, photocopying, banners, invitation cards, scanning and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Archivo+Black&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-title="Staff">
+<main>
+<div class="wrap login-wrap"><div class="login"><div class="eyebrow">Staff portal</div><h2>Sign in</h2>
+<p class="muted">Staff and the administrator sign in with their ID and password.</p>
+<div id="already" hidden class="msg info">You are already signed in. <a href="portal.html">Open the portal</a></div>
+<form id="lf" class="form" style="grid-template-columns:1fr"><div><label for="lid">Staff ID</label><input id="lid" autocomplete="username" required autocapitalize="characters"></div>
+<div><label for="lpw">Password</label><input id="lpw" type="password" autocomplete="current-password" required></div>
+<div id="lmsg" aria-live="polite"></div><button class="btn mag" type="submit" id="lgo">Sign in</button></form>
+<p class="note" style="margin-top:14px">Visitors do not need to sign in to use the rest of the website.</p></div></div>
+</main>
+<script src="js/app.js"></script>
+<script>App.boot('staff');</script>
+<script>
+(function(){
+if(App.Auth.get()) document.getElementById('already').hidden=false;
+document.getElementById('lf').addEventListener('submit',async e=>{
+  e.preventDefault(); const b=document.getElementById('lgo'),m=document.getElementById('lmsg'); b.disabled=true; m.innerHTML='';
+  const r=await App.Auth.login(document.getElementById('lid').value,document.getElementById('lpw').value);
+  if(!r.ok){m.innerHTML='<div class="msg err">'+App.esc(r.msg)+'</div>';b.disabled=false;return;}
+  const n=new URLSearchParams(location.search).get('next');
+  location.href=/^[a-z-]+\.html$/.test(n||'')&&n.startsWith('portal')?n:'portal.html';
+});
+})();
+</script>
+</body></html>

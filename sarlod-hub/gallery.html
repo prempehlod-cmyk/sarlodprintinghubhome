@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SARLOD Printing Hub, Yabi</title>
+<meta name="description" content="SARLOD Printing Hub, Atwima-Yabi: printing, photocopying, banners, invitation cards, scanning and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Archivo+Black&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body data-title="Gallery">
+<main>
+<div class="wrap page-title"><div class="eyebrow">Gallery</div><h2>Our work</h2></div>
+<section class="section" style="padding-top:12px"><div class="wrap"><div class="holders" data-holders="gallery"></div></div></section>
+<section class="section alt" id="gallerySec" hidden><div class="wrap"><h2>All pictures</h2><p class="muted">Tap a picture to enlarge it.</p><ul class="thumbs" id="galleryGrid" style="padding:0;margin:0"></ul></div></section>
+<dialog id="lightbox" class="big" aria-label="Enlarged picture"><img alt="Enlarged picture"></dialog>
+</main>
+<script src="js/app.js"></script>
+<script>App.boot('gallery');</script>
+</body></html>
